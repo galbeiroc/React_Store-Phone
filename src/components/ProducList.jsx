@@ -2,14 +2,9 @@ import React, { Component } from 'react';
 import Product from './Product';
 import Title from './Title';
 import { ProductConsumer } from '../components/context';
-import { storeProducts } from '../data';
 
 export default class ProducList extends Component {
-  state = {
-    products: storeProducts
-  };
   render() {
-    console.log(this.state.products);
     return (
       <React.Fragment>
         <div className={'py-5'}>
@@ -19,7 +14,13 @@ export default class ProducList extends Component {
               <ProductConsumer>
                 {value => {
                   return value.products.map(product => {
-                    return <Product key={product.id} product={product} />;
+                    return (
+                      <Product
+                        key={product.id}
+                        product={product}
+                        handleDetail={value.handleDetail}
+                      />
+                    );
                   });
                 }}
               </ProductConsumer>
