@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { storeProducts, detailProduct } from '../data';
-import { stat } from 'fs';
 
 const ProductContext = React.createContext();
 //Provider
@@ -10,7 +9,9 @@ class ProductProvider extends Component {
   state = {
     products: [],
     detailProducts: detailProduct,
-    cart: []
+    cart: [],
+    modalOpen: false,
+    modalProduct: detailProduct
   };
 
   componentDidMount() {
@@ -44,7 +45,7 @@ class ProductProvider extends Component {
     let tempPtoducts = [...this.state.products];
     const index = tempPtoducts.indexOf(this.getItem(id));
     const product = tempPtoducts[index];
-    product.inCart = true;
+    product.inCart = false;
     product.count = 1;
     const price = product.price;
     product.total = price;
@@ -57,6 +58,19 @@ class ProductProvider extends Component {
         console.log(this.state);
       }
     );
+  };
+
+  openModal = id => {
+    const product = this.getItem(id);
+    this.setState(() => {
+      return { modalProduct: product, modalOpen: true };
+    });
+  };
+
+  closeModal = () => {
+    this.setState(() => {
+      return { modalOpen: false };
+    });
   };
 
   // tester = () => {
@@ -81,7 +95,9 @@ class ProductProvider extends Component {
         value={{
           ...this.state,
           handleDetail: this.handleDetail,
-          addToCart: this.addToCart
+          addToCart: this.addToCart,
+          openModal: this.openModal,
+          closeModal: this.closeModal
         }}
       >
         {/* <button onClick={this.tester}>Test me</button> */}
