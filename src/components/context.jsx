@@ -73,6 +73,20 @@ class ProductProvider extends Component {
     });
   };
 
+  increment = id => {
+    console.log('increment cart');
+  };
+
+  decrement = id => {
+    console.log('decrement cart');
+  };
+
+  revomeItem = id => {
+    console.log('revome item of cart');
+  };
+
+  clearCart = () => {};
+
   // tester = () => {
   //   console.log('State Products: ', this.state.products[0].inCart);
   //   console.log('Data Products: ', storeProducts[0].inCart);
@@ -97,7 +111,11 @@ class ProductProvider extends Component {
           handleDetail: this.handleDetail,
           addToCart: this.addToCart,
           openModal: this.openModal,
-          closeModal: this.closeModal
+          closeModal: this.closeModal,
+          increment: this.increment,
+          decrement: this.decrement,
+          revomeItem: this.revomeItem,
+          clearCart: this.clearCart
         }}
       >
         {/* <button onClick={this.tester}>Test me</button> */}
